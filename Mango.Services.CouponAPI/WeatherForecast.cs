@@ -1,4 +1,4 @@
-namespace Mango.Services.Coupon.API
+namespace Mango.Services.CouponAPI
 {
     public class WeatherForecast
     {

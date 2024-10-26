@@ -1,6 +1,6 @@
-﻿namespace Mango.Services.Coupon.API.Models.Dto
+﻿namespace Mango.Services.CouponAPI.Models
 {
-    public class CouponDto
+    public class Coupon
     {
         public int CouponId { get; set; }
         public string CouponName { get; set; }
