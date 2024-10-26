@@ -1,5 +1,6 @@
 ﻿using Mango.Services.CouponAPI.Data;
 using Mango.Services.CouponAPI.Models;
+using Mango.Services.CouponAPI.Models.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -11,50 +12,49 @@ namespace Mango.Services.CouponAPI.Controllers
     public class CouponController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
+        private ResponseDto _response;
 
         public CouponController(ApplicationDbContext db)
         {
             _db = db;
+            _response = new ResponseDto();
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public object Get()
         {
-            IEnumerable<Coupon> coupons = new List<Coupon>();
-
             try
             {
-                coupons = _db.Coupons.ToList();
-
-                return Ok(coupons);
+                IEnumerable<Coupon> coupons = _db.Coupons.ToList();
+                _response.Result = coupons;
             }
             catch (Exception ex)
             {
-                return BadRequest(coupons);
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
             }
+
+            return _response;
         }
 
         [HttpGet]
         [Route("{id:int}")]
-        public IActionResult Get(int id)
+        public object Get(int id)
         {
             Coupon? coupon;
 
             try
             {
-                coupon = _db.Coupons.FirstOrDefault(c => c.CouponId == id);
-
-                if (coupon == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(coupon);
+                coupon = _db.Coupons.First(c => c.CouponId == id);
+                _response.Result = coupon;
             }
             catch (Exception ex)
             {
-                return BadRequest();
-            }
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }            
+
+            return _response;
         }
     }
 }
