@@ -17,8 +17,8 @@ namespace Mango.Services.CouponAPI.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Coupon>().HasData(
-                new Coupon { CouponId = 1, CouponName = "MANGOINFLUENCER#10", DiscountAmount = 10, MinAmount = 20 },
-                new Coupon { CouponId = 2, CouponName = "MANGOINFLUENCER#20", DiscountAmount = 20, MinAmount = 35 }
+                new Coupon { CouponId = 1, CouponCode = "MANGOINFLUENCER#10", DiscountAmount = 10, MinAmount = 20 },
+                new Coupon { CouponId = 2, CouponCode = "MANGOINFLUENCER#20", DiscountAmount = 20, MinAmount = 35 }
                 );
         }
     }

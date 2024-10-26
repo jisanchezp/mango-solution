@@ -14,7 +14,7 @@ namespace Mango.Services.CouponAPI.Migrations
         {
             migrationBuilder.InsertData(
                 table: "Coupons",
-                columns: new[] { "CouponId", "CouponName", "DiscountAmount", "MinAmount" },
+                columns: new[] { "CouponId", "CouponCode", "DiscountAmount", "MinAmount" },
                 values: new object[,]
                 {
                     { 1, "MANGOINFLUENCER#10", 10.0, 20 },
