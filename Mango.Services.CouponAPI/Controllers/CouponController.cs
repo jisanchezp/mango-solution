@@ -126,8 +126,12 @@ namespace Mango.Services.CouponAPI.Controllers
             try
             {
                 var coupon = _db.Coupons.Find(id);
-                _db.Coupons.Remove(coupon);
-                _db.SaveChanges();
+
+                if (coupon is not null)
+                {
+                    _db.Coupons.Remove(coupon);
+                    _db.SaveChanges();
+                }
             }
             catch (Exception ex)
             {

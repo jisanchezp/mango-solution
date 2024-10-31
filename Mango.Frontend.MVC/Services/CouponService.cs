@@ -7,7 +7,7 @@ namespace Mango.Frontend.MVC.Services
     {
         private readonly IConfiguration _config;
         private readonly IBaseService _baseService;
-        private readonly string _couponApiUrl;
+        private readonly string _couponApiUrl = string.Empty;
         private readonly string CONTROLLER_ROUTE = "api/Coupons";
 
         public CouponService(IConfiguration config, IBaseService baseService)
