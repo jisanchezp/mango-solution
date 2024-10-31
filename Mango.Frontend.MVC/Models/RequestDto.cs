@@ -4,9 +4,9 @@ namespace Mango.Frontend.MVC.Models
 {
     public class RequestDto
     {
-        public HttpVerbEnum HttpVerb { get; set; } = HttpVerbEnum.GET;
+        public ApiTypeEnum HttpVerb { get; set; } = ApiTypeEnum.GET;
         public string Url { get; set; } = string.Empty;
-        public object DiscountAmount { get; set; } = string.Empty;
+        public object Data { get; set; } = default!;
         public string AccessToken { get; set; } = string.Empty;
     }
 }

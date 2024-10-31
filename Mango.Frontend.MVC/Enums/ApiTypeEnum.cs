@@ -2,7 +2,7 @@
 
 namespace Mango.Frontend.MVC.Enums
 {
-    public enum HttpVerbEnum : int
+    public enum ApiTypeEnum : int
     {
         GET,
         POST,
