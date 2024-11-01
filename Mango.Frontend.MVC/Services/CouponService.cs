@@ -24,7 +24,6 @@ namespace Mango.Frontend.MVC.Services
 
         public async Task<ResponseDto?> GetCouponAsync(string couponCode)
         {
-
             RequestDto requestDto = new()
             {
                 Url = $"{_couponApiUrl}/GetByCode/{couponCode}",
