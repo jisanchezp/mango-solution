@@ -24,12 +24,12 @@ namespace Mango.Frontend.MVC.Services
 
                 HttpClient client = _httpClientFactory.CreateClient("MangoAPI");
                 HttpRequestMessage message = new();
-                message.Headers.Add("Content-Type", "application/json");
                 message.RequestUri = new Uri(requestDto.Url);
 
                 if (requestDto.Data is not null)
                 {
                     message.Content = new StringContent(JsonSerializer.Serialize(requestDto.Data));
+                    message.Content.Headers.Add("Content-Type", "application/json");
                 }
 
                 HttpResponseMessage? apiResponse = null;
@@ -68,7 +68,8 @@ namespace Mango.Frontend.MVC.Services
                         break;
                     default:
                         string content = await apiResponse.Content.ReadAsStringAsync();
-                        responseDto = JsonSerializer.Deserialize<ResponseDto?>(content);
+                        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                        responseDto = JsonSerializer.Deserialize<ResponseDto?>(content, options);
                         break;
                 }
 

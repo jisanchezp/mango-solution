@@ -8,7 +8,7 @@ namespace Mango.Frontend.MVC.Services
         private readonly IConfiguration _config;
         private readonly IBaseService _baseService;
         private readonly string _couponApiUrl = string.Empty;
-        private readonly string CONTROLLER_ROUTE = "api/Coupons";
+        private readonly string CONTROLLER_ROUTE = "api/Coupon";
 
         public CouponService(IConfiguration config, IBaseService baseService)
         {
@@ -16,9 +16,9 @@ namespace Mango.Frontend.MVC.Services
             _baseService = baseService;
             string? couponApiUrl = _config.GetValue<string>("Services:CouponAPI");
 
-            if (string.IsNullOrEmpty(couponApiUrl))
+            if (string.IsNullOrEmpty(couponApiUrl) == false)
             {
-                _couponApiUrl = $"{_couponApiUrl}/{CONTROLLER_ROUTE}";
+                _couponApiUrl = $"{couponApiUrl}/{CONTROLLER_ROUTE}";
             }
         }
 

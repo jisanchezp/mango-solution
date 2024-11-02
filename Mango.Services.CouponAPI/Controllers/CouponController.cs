@@ -31,7 +31,7 @@ namespace Mango.Services.CouponAPI.Controllers
             {
                 IEnumerable<Coupon> coupons = _db.Coupons.ToList();
 
-                _response.Result = _mapper.Map<IEnumerable<CouponDto>>(coupons); ;
+                _response.Result = _mapper.Map<IEnumerable<CouponDto>>(coupons);
             }
             catch (Exception ex)
             {

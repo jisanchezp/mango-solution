@@ -22,7 +22,8 @@ namespace Mango.Frontend.MVC.Controllers
 
             if (responseDto != null && responseDto.IsSuccess)
             {
-                coupons = JsonSerializer.Deserialize<List<CouponDto>>(Convert.ToString(responseDto.Result));
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                coupons = JsonSerializer.Deserialize<List<CouponDto>>(Convert.ToString(responseDto.Result), options);
             }
 
             return View();
