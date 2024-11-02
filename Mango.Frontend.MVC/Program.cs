@@ -14,11 +14,6 @@ builder.Services.AddHttpClient<ICouponService, CouponService>();
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
 
-//builder.Services.Configure<JsonSerializerOptions>(options =>
-//{
-//    options.PropertyNameCaseInsensitive = true;
-//});
-
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

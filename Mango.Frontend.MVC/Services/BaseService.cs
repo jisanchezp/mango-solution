@@ -1,5 +1,6 @@
 ﻿
 using Mango.Frontend.MVC.Enums;
+using Mango.Frontend.MVC.Helper;
 using Mango.Frontend.MVC.Models;
 using System.Net;
 using System.Text.Json;
@@ -68,8 +69,7 @@ namespace Mango.Frontend.MVC.Services
                         break;
                     default:
                         string content = await apiResponse.Content.ReadAsStringAsync();
-                        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                        responseDto = JsonSerializer.Deserialize<ResponseDto?>(content, options);
+                        responseDto = JsonHelper.DeserializeCaseInsensitive<ResponseDto?>(content);
                         break;
                 }
 
