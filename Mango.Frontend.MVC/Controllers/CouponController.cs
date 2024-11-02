@@ -28,7 +28,7 @@ namespace Mango.Frontend.MVC.Controllers
                 coupons = JsonHelper.DeserializeCaseInsensitive<List<CouponDto>>(Convert.ToString(responseDto.Result)!);
             }
 
-            return View();
+            return View(coupons);
         }
     }
 }
