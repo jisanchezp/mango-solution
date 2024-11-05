@@ -49,11 +49,41 @@ namespace Mango.Frontend.MVC.Controllers
                 {
                     return RedirectToAction(nameof(Index));
                 }
-                
-				
 			}
 
             return View(couponDto);
 		}
-	}
+
+        public async Task<IActionResult> CouponDelete(int? id)
+        {
+            if (id is not null && id > 0)
+            {
+                ResponseDto? responseDto = await _couponService.GetCouponByIdAsync((int)id);
+
+                if (responseDto is not null &&
+                    responseDto.IsSuccess)
+                {
+                    CouponDto? couponDto = JsonHelper.DeserializeCaseInsensitive<CouponDto>(responseDto.Result.ToString());
+
+                    return View(couponDto);
+                }
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CouponDelete(CouponDto couponDto)
+        {
+			ResponseDto? responseDto = await _couponService.DeleteCouponAsync(couponDto.CouponId);
+		
+            if (responseDto is not null 
+                && responseDto.IsSuccess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(couponDto);
+        }
+    }
 }
