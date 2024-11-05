@@ -40,14 +40,14 @@
 				{
 					<tr>
 						<td>
-							@coupon.CouponCode
+							coupon.CouponCode
 						</td>
 						<td>
-							@coupon.DiscountAmount
+							@(coupon.DiscountAmount.ToString("c"))
 						</td>
 						<td>
+							@(coupon.MinAmount.ToString("c"))
 						</td>
-							@coupon.MinAmount
 						<td>
 							<a class="btn btn-danger">
 								<i class="bi bi-trash"></i>
