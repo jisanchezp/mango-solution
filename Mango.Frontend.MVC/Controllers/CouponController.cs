@@ -30,5 +30,23 @@ namespace Mango.Frontend.MVC.Controllers
 
             return View(coupons);
         }
-    }
+
+		[HttpGet]
+		public async Task<IActionResult> CouponCreate()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> CouponCreate(CouponDto couponDto)
+		{
+            if (ModelState.IsValid)
+            {
+                await _couponService.CreateCouponAsync(couponDto);
+				return RedirectToAction(nameof(Index));
+			}
+
+            return View(couponDto);
+		}
+	}
 }
