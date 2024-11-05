@@ -42,8 +42,15 @@ namespace Mango.Frontend.MVC.Controllers
 		{
             if (ModelState.IsValid)
             {
-                await _couponService.CreateCouponAsync(couponDto);
-				return RedirectToAction(nameof(Index));
+                ResponseDto? responseDto = await _couponService.CreateCouponAsync(couponDto);
+
+                if (responseDto is not null &&
+                    responseDto.IsSuccess)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                
+				
 			}
 
             return View(couponDto);

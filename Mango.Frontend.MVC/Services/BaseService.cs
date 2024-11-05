@@ -3,6 +3,9 @@ using Mango.Frontend.MVC.Enums;
 using Mango.Frontend.MVC.Helper;
 using Mango.Frontend.MVC.Models;
 using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Mime;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 
@@ -30,7 +33,7 @@ namespace Mango.Frontend.MVC.Services
                 if (requestDto.Data is not null)
                 {
                     message.Content = new StringContent(JsonSerializer.Serialize(requestDto.Data));
-                    message.Content.Headers.Add("Content-Type", "application/json");
+                    message.Content.Headers.ContentType = new("application/json", "utf-8");
                 }
 
                 HttpResponseMessage? apiResponse = null;
