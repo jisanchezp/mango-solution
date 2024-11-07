@@ -27,6 +27,10 @@ namespace Mango.Frontend.MVC.Controllers
             {
                 coupons = JsonHelper.DeserializeCaseInsensitive<List<CouponDto>>(Convert.ToString(responseDto.Result)!);
             }
+            else
+            {
+                TempData["error"] = responseDto?.Message;
+            }
 
             return View(coupons);
         }
@@ -47,9 +51,14 @@ namespace Mango.Frontend.MVC.Controllers
                 if (responseDto is not null &&
                     responseDto.IsSuccess)
                 {
+                    TempData["success"] = "A beautiful Coupon has born ^^!";
                     return RedirectToAction(nameof(Index));
                 }
-			}
+                else
+                {
+                    TempData["error"] = responseDto?.Message;
+                }
+            }
 
             return View(couponDto);
 		}
@@ -63,9 +72,13 @@ namespace Mango.Frontend.MVC.Controllers
                 if (responseDto is not null &&
                     responseDto.IsSuccess)
                 {
-                    CouponDto? couponDto = JsonHelper.DeserializeCaseInsensitive<CouponDto>(responseDto.Result.ToString());
+                    CouponDto? couponDto = JsonHelper.DeserializeCaseInsensitive<CouponDto>(responseDto.Result.ToString());                    
 
                     return View(couponDto);
+                }
+                else
+                {
+                    TempData["error"] = responseDto?.Message;
                 }
             }
 
@@ -80,7 +93,12 @@ namespace Mango.Frontend.MVC.Controllers
             if (responseDto is not null 
                 && responseDto.IsSuccess)
             {
+                TempData["success"] = "Coupon has left us...";
                 return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                TempData["error"] = responseDto?.Message;
             }
 
             return View(couponDto);
