@@ -1,9 +1,9 @@
 ﻿using Mango.Services.AuthAPI.Data;
+using Mango.Services.AuthAPI.Models;
 using Mango.Services.AuthAPI.Models.Dto;
-using Mango.Services.AuthAPI.Services;
 using Microsoft.AspNetCore.Identity;
 
-namespace Mango.Services.AuthAPI.Models
+namespace Mango.Services.AuthAPI.Services
 {
     public class AuthService : IAuthService
     {
@@ -59,7 +59,7 @@ namespace Mango.Services.AuthAPI.Models
 
             ApplicationUser user = new()
             {
-                UserName= email,
+                UserName = email,
                 Email = email,
                 NormalizedEmail = email.ToUpper(),
                 Name = registrationRequestDto.Name,
@@ -78,7 +78,7 @@ namespace Mango.Services.AuthAPI.Models
                     {
                         Id = userToReturn.Id,
                         Name = userToReturn.Name,
-                        Email = userToReturn.Email is null ? notAvailable : userToReturn.Email, 
+                        Email = userToReturn.Email is null ? notAvailable : userToReturn.Email,
                         PhoneNumber = userToReturn.Email is null ? notAvailable : userToReturn.Email,
                     };
 
@@ -88,14 +88,14 @@ namespace Mango.Services.AuthAPI.Models
                 {
                     var firstError = result.Errors.FirstOrDefault();
                     if (firstError != null)
-                    return firstError.Description;
+                        return firstError.Description;
                 }
             }
             catch (Exception ex)
             {
             }
 
-            return"Error Encountered";
+            return "Error Encountered";
         }
     }
 }
