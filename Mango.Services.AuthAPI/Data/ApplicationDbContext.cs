@@ -7,7 +7,7 @@ namespace Mango.Services.AuthAPI.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        DbSet<ApplicationUser> ApplicationUsers {  get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers {  get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions) : base(dbContextOptions) { }
 
