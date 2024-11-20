@@ -13,11 +13,11 @@ namespace Mango.Services.AuthAPI.Models
 
         public AuthService(
             ApplicationDbContext db,
-            UserManager<ApplicationUser> _userManager,
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             _db = db;
-            _userManager = _userManager;
+            _userManager = userManager;
             _roleManager = roleManager;
         }
 
@@ -26,8 +26,9 @@ namespace Mango.Services.AuthAPI.Models
             throw new NotImplementedException();
         }
 
-        public async Task<UserDto> Register(RegistrationRequestDto registrationRequestDto)
+        public async Task<string> Register(RegistrationRequestDto registrationRequestDto)
         {
+            var output = string.Empty;
             var email = registrationRequestDto.Email;
 
             ApplicationUser user = new()
@@ -41,8 +42,8 @@ namespace Mango.Services.AuthAPI.Models
 
             try
             {
-                var result = _userManager.CreateAsync(user, registrationRequestDto.Password);
-                if (result.IsCompletedSuccessfully)
+                var result = await _userManager.CreateAsync(user, registrationRequestDto.Password);
+                if (result.Succeeded)
                 {
                     var userToReturn = _db.ApplicationUsers.First(u => u.UserName == email);
                     var notAvailable = "N/A";
@@ -55,14 +56,20 @@ namespace Mango.Services.AuthAPI.Models
                         PhoneNumber = userToReturn.Email is null ? notAvailable : userToReturn.Email,
                     };
 
-                    return userDto;
+                    return "";
+                }
+                else
+                {
+                    var firstError = result.Errors.FirstOrDefault();
+                    if (firstError != null)
+                    return firstError.Description;
                 }
             }
             catch (Exception ex)
             {
             }
 
-            return new UserDto();
+            return"Error Encountered";
         }
     }
 }
