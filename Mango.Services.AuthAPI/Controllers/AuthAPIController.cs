@@ -22,7 +22,7 @@ namespace Mango.Services.AuthAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegistrationRequestDto registrationRequestDto)
         {
-            var output = await _authService.Register(registrationRequestDto);
+            var output = await _authService.RegisterAsync(registrationRequestDto);
 
             if (string.IsNullOrWhiteSpace(output) == false)
             {
@@ -38,7 +38,7 @@ namespace Mango.Services.AuthAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequestDto)
         {
-            var output = await _authService.Login(loginRequestDto);
+            var output = await _authService.LoginAsync(loginRequestDto);
 
             if (output.User is null)
             {
@@ -54,7 +54,7 @@ namespace Mango.Services.AuthAPI.Controllers
         [HttpPost("assign-role")]
         public async Task<IActionResult> AssignRole(RegistrationRequestDto model)
         {
-            var output = await _authService.AssignRole(model.Email, model.Role.ToUpper());
+            var output = await _authService.AssignRoleAsync(model.Email, model.Role.ToUpper());
 
             if (output == false)
             {
