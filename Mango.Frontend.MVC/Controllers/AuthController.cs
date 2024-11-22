@@ -105,6 +105,7 @@ namespace Mango.Frontend.MVC.Controllers
 
             // MS Identity claims
             identity.AddClaim(new(ClaimTypes.Name, jwt.Claims.FirstOrDefault(t => t.Type == JwtRegisteredClaimNames.Email).Value));
+            identity.AddClaim(new(ClaimTypes.Role, jwt.Claims.FirstOrDefault(t => t.Type == "role").Value));
 
             var principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);

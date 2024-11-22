@@ -1,6 +1,7 @@
 ﻿using Mango.Services.AuthAPI.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Mango.Services.AuthAPI.Services
             _jwtOptions = jwtOptions.Value;
         }
 
-        public string GenerateToken(ApplicationUser applicationUser)
+        public string GenerateToken(ApplicationUser applicationUser, IEnumerable<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtOptions.Secret);
@@ -24,8 +25,10 @@ namespace Mango.Services.AuthAPI.Services
             {
                 new (JwtRegisteredClaimNames.Email, applicationUser.Email),
                 new (JwtRegisteredClaimNames.Sub, applicationUser.Id),
-                new (JwtRegisteredClaimNames.Name, applicationUser.UserName),
+                new (JwtRegisteredClaimNames.Name, applicationUser.UserName)
             };
+
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
