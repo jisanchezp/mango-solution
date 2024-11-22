@@ -2,17 +2,23 @@
 using Mango.Frontend.MVC.Helper;
 using Mango.Frontend.MVC.Models.Dtos;
 using Mango.Frontend.MVC.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Mango.Frontend.MVC.Controllers
 {
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
+        private readonly ITokenProvider _tokenProvider;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, ITokenProvider tokenProvider)
         {
             _authService = authService;
+            _tokenProvider = tokenProvider;
         }
 
         [HttpGet]
@@ -30,6 +36,8 @@ namespace Mango.Frontend.MVC.Controllers
             {
                 LoginResponseDto loginResponseDto = JsonHelper.DeserializeCaseInsensitive<LoginResponseDto>(Convert.ToString(responseDto.Result)!)!;
 
+                await SignInUser(loginResponseDto);
+                _tokenProvider.SetToken(loginResponseDto.Token);
                 return RedirectToAction(nameof(Index), "Home");
             }
             else
@@ -77,9 +85,29 @@ namespace Mango.Frontend.MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            return View();
+            await HttpContext.SignOutAsync();
+            return RedirectToAction(nameof(Index), "Home");
+        }
+
+        private async Task SignInUser(LoginResponseDto loginResponseDto)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwt = handler.ReadJwtToken(loginResponseDto.Token);
+            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+            identity.AddClaim(new(JwtRegisteredClaimNames.Email,
+                jwt.Claims.FirstOrDefault(t => t.Type == JwtRegisteredClaimNames.Email).Value));
+            identity.AddClaim(new(JwtRegisteredClaimNames.Sub,
+                jwt.Claims.FirstOrDefault(t => t.Type == JwtRegisteredClaimNames.Sub).Value));
+            identity.AddClaim(new(JwtRegisteredClaimNames.Name,
+                jwt.Claims.FirstOrDefault(t => t.Type == JwtRegisteredClaimNames.Name).Value));
+
+            // MS Identity claims
+            identity.AddClaim(new(ClaimTypes.Name, jwt.Claims.FirstOrDefault(t => t.Type == JwtRegisteredClaimNames.Email).Value));
+
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
         }
     }
 }
