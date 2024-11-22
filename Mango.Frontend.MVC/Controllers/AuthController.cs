@@ -1,4 +1,5 @@
-﻿using Mango.Frontend.MVC.Models.Dtos;
+﻿using Mango.Frontend.MVC.Constants;
+using Mango.Frontend.MVC.Models.Dtos;
 using Mango.Frontend.MVC.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,8 @@ namespace Mango.Frontend.MVC.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.RoleList = RoleConstants.rolesSelectList;
+
             return View();
         }
 
