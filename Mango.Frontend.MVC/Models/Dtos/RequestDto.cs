@@ -1,6 +1,6 @@
 ﻿using Mango.Frontend.MVC.Enums;
 
-namespace Mango.Frontend.MVC.Models
+namespace Mango.Frontend.MVC.Models.Dtos
 {
     public class RequestDto
     {

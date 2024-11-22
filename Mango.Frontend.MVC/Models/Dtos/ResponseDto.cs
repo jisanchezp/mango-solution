@@ -1,4 +1,4 @@
-﻿namespace Mango.Frontend.MVC.Models
+﻿namespace Mango.Frontend.MVC.Models.Dtos
 {
     public class ResponseDto
     {

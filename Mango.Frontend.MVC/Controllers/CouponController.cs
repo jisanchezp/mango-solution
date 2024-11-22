@@ -1,5 +1,5 @@
 ﻿using Mango.Frontend.MVC.Helper;
-using Mango.Frontend.MVC.Models;
+using Mango.Frontend.MVC.Models.Dtos;
 using Mango.Frontend.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;

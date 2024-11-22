@@ -1,7 +1,7 @@
 ﻿
 using Mango.Frontend.MVC.Enums;
 using Mango.Frontend.MVC.Helper;
-using Mango.Frontend.MVC.Models;
+using Mango.Frontend.MVC.Models.Dtos;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Mime;
