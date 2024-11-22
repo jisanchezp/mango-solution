@@ -1,4 +1,5 @@
 ﻿using Mango.Frontend.MVC.Models.Dtos;
+using Mango.Frontend.MVC.Services.Interfaces;
 using System;
 
 namespace Mango.Frontend.MVC.Services

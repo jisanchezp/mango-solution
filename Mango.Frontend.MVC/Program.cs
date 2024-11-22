@@ -1,7 +1,5 @@
 using Mango.Frontend.MVC.Services;
-using System.Text.Encodings.Web;
-using System.Text.Json.Serialization;
-using System.Text.Json;
+using Mango.Frontend.MVC.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

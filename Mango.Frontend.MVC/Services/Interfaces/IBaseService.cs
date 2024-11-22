@@ -1,6 +1,6 @@
 ﻿using Mango.Frontend.MVC.Models.Dtos;
 
-namespace Mango.Frontend.MVC.Services
+namespace Mango.Frontend.MVC.Services.Interfaces
 {
     public interface IBaseService
     {
