@@ -26,7 +26,7 @@ namespace Mango.Services.AuthAPI.Controllers
 
             if (string.IsNullOrWhiteSpace(output) == false)
             {
-                _response.IsSucess = false;
+                _response.IsSuccess = false;
                 _response.Message = output;
 
                 return BadRequest(_response);
@@ -42,7 +42,7 @@ namespace Mango.Services.AuthAPI.Controllers
 
             if (output.User is null)
             {
-                _response.IsSucess = false;
+                _response.IsSuccess = false;
                 _response.Message = "Username or passwword is incorrect";
                 BadRequest(_response);
             }
@@ -58,7 +58,7 @@ namespace Mango.Services.AuthAPI.Controllers
 
             if (output == false)
             {
-                _response.IsSucess = false;
+                _response.IsSuccess = false;
                 _response.Message = "Error encountered";
                 BadRequest(_response);
             }

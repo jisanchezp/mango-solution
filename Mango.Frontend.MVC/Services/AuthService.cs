@@ -17,13 +17,13 @@ namespace Mango.Frontend.MVC.Services
             _baseService = baseService;
             string? authApiUrl = _config.GetValue<string>("Services:AuthAPI");
 
-            if (string.IsNullOrWhiteSpace(_authApiUrl) == false)
+            if (string.IsNullOrWhiteSpace(authApiUrl) == false)
             {
                 _authApiUrl = $"{authApiUrl}/{CONTROLLER_ROUTE}";
             }
         }
 
-        public async Task<ResponseDto?> AssignRole(RegistrationRequestDto registrationRequestDto)
+        public async Task<ResponseDto?> AssignRoleAsync(RegistrationRequestDto registrationRequestDto)
         {
             RequestDto requestDto = new()
             {
