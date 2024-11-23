@@ -45,7 +45,7 @@ namespace Mango.Frontend.MVC.Services
                 Data = loginRequestDto
             };
 
-            ResponseDto? response = await _baseService.SendAsync(requestDto);
+            ResponseDto? response = await _baseService.SendAsync(requestDto, false);
             return response;
         }
 
@@ -58,7 +58,7 @@ namespace Mango.Frontend.MVC.Services
                 Data = registrationRequestDto
             };
 
-            ResponseDto? response = await _baseService.SendAsync(requestDto);
+            ResponseDto? response = await _baseService.SendAsync(requestDto, false);
             return response;            
         }
     }
