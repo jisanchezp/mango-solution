@@ -38,13 +38,13 @@ namespace Mango.Frontend.MVC.Controllers
 
                 await SignInUser(loginResponseDto);
                 _tokenProvider.SetToken(loginResponseDto.Token);
+
+                TempData["success"] = "Login successful! :)";
                 return RedirectToAction(nameof(Index), "Home");
             }
-            else
-            {
-                ModelState.AddModelError("CustomError", responseDto.Message);
-                return View(loginRequestDto);
-            }
+
+            TempData["error"] = responseDto.Message;
+            return View(loginRequestDto);            
         }
 
         [HttpGet]
@@ -72,14 +72,14 @@ namespace Mango.Frontend.MVC.Controllers
 
                 if (assignRoleResponse is not null && assignRoleResponse.IsSuccess)
                 {
-                    TempData["Success"] = "Registration Successful";
+                    TempData["success"] = "Registration Successful";
                     return RedirectToAction(nameof(Login));
                 }
 
                 errorMessage = assignRoleResponse.Message;
             }
 
-            ModelState.AddModelError("CustomError", errorMessage);
+            TempData["error"] = errorMessage;
             ViewBag.RoleList = RoleConstants.rolesSelectList;
             return View(registrationRequestDto);
         }
