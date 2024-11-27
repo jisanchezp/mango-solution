@@ -5,7 +5,7 @@ namespace Mango.Services.ProductAPI.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
