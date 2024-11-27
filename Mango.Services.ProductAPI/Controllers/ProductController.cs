@@ -30,7 +30,6 @@ namespace Mango.Services.ProductAPI.Controllers
         [HttpGet]
         public object Get()
         {
-
             try
             {
                 IEnumerable<Product> products = _db.Products.ToList();
