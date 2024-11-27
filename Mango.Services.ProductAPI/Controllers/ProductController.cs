@@ -100,5 +100,27 @@ namespace Mango.Services.ProductAPI.Controllers
 
             return _response;
         }
+
+        [HttpDelete]
+        public object Delete(int id)
+        {
+            try
+            {
+                var product = _db.Products.Find(id);
+
+                if (product is not null)
+                {
+                    _db.Products.Remove(product);
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+
+            return _response;
+        }
     }
 }
