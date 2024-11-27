@@ -1,3 +1,5 @@
+using AutoMapper;
+using Mango.Services.ProductAPI;
 using Mango.Services.ProductAPI.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,8 +10,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProductsDb"));
 });
 
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
-
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -23,7 +27,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
