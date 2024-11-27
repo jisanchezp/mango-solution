@@ -62,7 +62,7 @@ namespace Mango.Services.ProductAPI.Controllers
         }
 
         [HttpPost]
-        public object Post(ProductDto productDto)
+        public object Post([FromBody] ProductDto productDto)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace Mango.Services.ProductAPI.Controllers
         }
 
         [HttpPut]
-        public object Put(ProductDto productDto)
+        public object Put([FromBody] ProductDto productDto)
         {
             try
             {
