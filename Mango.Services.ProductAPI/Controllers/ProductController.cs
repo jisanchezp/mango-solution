@@ -60,5 +60,25 @@ namespace Mango.Services.ProductAPI.Controllers
 
             return _response;
         }
+
+        [HttpPost]
+        public object Post(ProductDto productDto)
+        {
+            try
+            {
+                var product = _mapper.Map<Product>(productDto);
+                _db.Products.Add(product);
+                _db.SaveChanges();
+
+                _response.Result = _mapper.Map<ProductDto>(product);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.Message;
+            }
+
+            return _response;
+        }
     }
 }
