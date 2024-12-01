@@ -11,7 +11,7 @@ using Microsoft.Identity.Client;
 
 namespace Mango.Services.ProductAPI.Controllers
 {
-    [Route("api/products")]
+    [Route("api/product")]
     [ApiController]
     [Authorize]
     public class ProductController : ControllerBase

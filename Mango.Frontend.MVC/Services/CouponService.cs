@@ -17,7 +17,7 @@ namespace Mango.Frontend.MVC.Services
             _baseService = baseService;
             string? couponApiUrl = _config.GetValue<string>("Services:CouponAPI");
 
-            if (string.IsNullOrEmpty(couponApiUrl) == false)
+            if (string.IsNullOrWhiteSpace(couponApiUrl) == false)
             {
                 _couponApiUrl = $"{couponApiUrl}/{CONTROLLER_ROUTE}";
             }
