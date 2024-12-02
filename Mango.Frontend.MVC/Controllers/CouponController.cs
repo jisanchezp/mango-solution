@@ -51,7 +51,7 @@ namespace Mango.Frontend.MVC.Controllers
                 if (responseDto is not null &&
                     responseDto.IsSuccess)
                 {
-                    TempData["success"] = "A beautiful Coupon has born ^^!";
+                    TempData["success"] = "A beautiful Coupon has been born ^^!";
                     return RedirectToAction(nameof(Index));
                 }
                 else
