@@ -106,6 +106,7 @@ namespace Mango.Services.ProductAPI.Controllers
 
         [HttpDelete]
         [Authorize(Roles = "ADMIN")]
+        [Route("{id:int}")]
         public object Delete(int id)
         {
             try

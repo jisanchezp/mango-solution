@@ -53,6 +53,7 @@ namespace Mango.Frontend.MVC.Controllers
                     responseDto.IsSuccess)
                 {
                     TempData["success"] = "An amazing product has been born! :O";
+                    return RedirectToAction(nameof(Index));
                 }
                 else
                 {
@@ -61,6 +62,35 @@ namespace Mango.Frontend.MVC.Controllers
             }
 
             return View(productDto);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ProductEdit(int? id)
+        {
+            if (id is not null && id > 0)
+            {
+                ResponseDto? responseDto = await _productService.GetProductByIdAsync((int)id);
+
+                if (responseDto is not null
+                    && responseDto.Result is not null
+                    && responseDto.IsSuccess)
+                {
+                    ProductDto? productDto = JsonHelper.DeserializeCaseInsensitive<ProductDto>(Convert.ToString(responseDto.Result)!);
+                    return View(productDto);
+                }
+                else
+                {
+                    TempData["error"] = responseDto?.Message;
+                }
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult ProductEdit(ProductDto productDto)
+        {
+            return View();
         }
 
         [HttpGet]
