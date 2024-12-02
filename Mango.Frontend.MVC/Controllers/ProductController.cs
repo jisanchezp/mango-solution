@@ -88,9 +88,25 @@ namespace Mango.Frontend.MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProductEdit(ProductDto productDto)
+        public async Task<IActionResult> ProductEdit(ProductDto productDto)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                ResponseDto? responseDto = await _productService.UpdateProductAsync(productDto);
+
+                if (responseDto is not null &&
+                    responseDto.IsSuccess)
+                {
+                    TempData["success"] = "Product edit was a total success!!";
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData["error"] = responseDto?.Message;
+                }
+            }
+
+            return View(productDto);
         }
 
         [HttpGet]
