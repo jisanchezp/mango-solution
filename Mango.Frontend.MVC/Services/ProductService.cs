@@ -1,4 +1,5 @@
-﻿using Mango.Frontend.MVC.Models.Dtos;
+﻿using Mango.Frontend.MVC.Enums;
+using Mango.Frontend.MVC.Models.Dtos;
 using Mango.Frontend.MVC.Services.Interfaces;
 using System.Runtime.CompilerServices;
 
@@ -24,29 +25,65 @@ namespace Mango.Frontend.MVC.Services
             }
         }
 
-        public Task<ResponseDto?> GetAllProductsAsync()
+        public async Task<ResponseDto?> GetAllProductsAsync()
         {
-            throw new NotImplementedException();
+            RequestDto requestDto = new RequestDto
+            {
+                Url = _productApiUrl,
+            };
+
+            ResponseDto? responseDto = await _baseService.SendAsync(requestDto);
+
+            return responseDto;
         }
 
-        public Task<ResponseDto?> GetProductByIdAsync(int id)
+        public async Task<ResponseDto?> GetProductByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            RequestDto requestDto = new()
+            {
+                Url = $"{_productApiUrl}/{id}",
+            };
+
+            ResponseDto? responseDto = await _baseService.SendAsync(requestDto);
+            return responseDto;
         }
 
-        public Task<ResponseDto?> CreateProductAsync(ProductDto ProductDto)
+        public async Task<ResponseDto?> CreateProductAsync(ProductDto productDto)
         {
-            throw new NotImplementedException();
+            RequestDto requestDto = new()
+            {
+                HttpVerb = ApiTypeEnum.POST,
+                Data = productDto,
+                Url = _productApiUrl
+            };
+
+            ResponseDto? responseDto = await _baseService.SendAsync(requestDto);
+            return responseDto;
         }
 
-        public Task<ResponseDto?> DeleteProductAsync(int id)
+        public async Task<ResponseDto?> UpdateProductAsync(ProductDto productDto)
         {
-            throw new NotImplementedException();
+            RequestDto requestDto = new()
+            {
+                HttpVerb = ApiTypeEnum.PUT,
+                Data = productDto,
+                Url = _productApiUrl
+            };
+
+            ResponseDto? responseDto = await _baseService.SendAsync(requestDto);
+            return responseDto;
         }
 
-        public Task<ResponseDto?> UpdateProductAsync(ProductDto ProductCode)
+        public async Task<ResponseDto?> DeleteProductAsync(int id)
         {
-            throw new NotImplementedException();
+            RequestDto requestDto = new()
+            {
+                HttpVerb= ApiTypeEnum.DELETE,
+                Url = $"{_productApiUrl}/{id}"
+            };
+
+            ResponseDto? responseDto = await _baseService.SendAsync(requestDto);
+            return responseDto;
         }
     }
 }
